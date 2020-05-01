@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateStepsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('steps', function (Blueprint $table) {
+            $table->bigIncrements('id');
+	        $table->unsignedBigInteger('recipe_id')->references('id')->on('recipe');
+	        $table->unsignedSmallInteger('step_order')->comment('sequence of steps in which these needs to be performed');
+	        $table->string('description');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('steps');
+    }
+}
